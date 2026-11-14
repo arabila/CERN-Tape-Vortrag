@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useNav } from '@slidev/client'
 
 // Our own next steps after the workshop; each click reveals the next step on the path.
 // Every card has a small looping illustration that only animates once the step is revealed.
@@ -14,11 +15,14 @@ const shown = computed(() => Math.min(Math.max(props.step, 0) + 1, steps.length)
 const fill = computed(() => `${((shown.value - 1) / (steps.length - 1)) * 100}%`)
 
 const arc = 'M48 112 Q160 0 268 112'
+
+// PDF export takes one snapshot per slide, so show every illustration in its finished state there
+const { isPrintMode } = useNav()
 </script>
 
 <template>
   <SlideFrame :section="0" title="Wie geht es bei uns weiter?" kicker="Ausblick">
-    <div class="stops">
+    <div class="stops" :class="{ still: isPrintMode }">
       <div class="rail"><div class="rail-fill" :style="{ width: fill }" /></div>
       <div v-for="(s, i) in steps" :key="s.key" class="stop" :class="{ on: i < shown, now: i === shown - 1 }" :style="{ '--c': s.color }">
         <div class="when">{{ s.when }}</div>
@@ -76,7 +80,8 @@ const arc = 'M48 112 Q160 0 268 112'
               <rect x="261" y="104" width="26" height="20" rx="2" fill="var(--accent)" />
               <rect x="271" y="112" width="6" height="12" fill="var(--surface)" />
               <text x="274" y="140" text-anchor="middle" class="t-place">bei uns</text>
-              <g class="plane">
+              <path v-if="isPrintMode" d="M-11 -4 L11 0 L-11 4 L-7 0 Z" fill="var(--amber)" transform="translate(190 52) rotate(18)" />
+              <g v-else class="plane">
                 <path d="M-11 -4 L11 0 L-11 4 L-7 0 Z" fill="var(--amber)">
                   <animateMotion :path="arc" dur="3.6s" repeatCount="indefinite" rotate="auto" />
                 </path>
@@ -182,6 +187,11 @@ const arc = 'M48 112 Q160 0 268 112'
 @keyframes pop { 0% { opacity: 0; transform: scale(0); } 8%, 66% { opacity: 1; transform: scale(1); } 74%, 100% { opacity: 0; transform: scale(1); } }
 @keyframes grow { 0% { transform: scaleY(0); } 14%, 60% { transform: scaleY(1); } 68%, 100% { transform: scaleY(0); } }
 @keyframes appear { 0% { opacity: 0; transform: scale(0.4); } 10%, 85% { opacity: 1; transform: scale(1); } 95%, 100% { opacity: 0; } }
+
+.still .stop * { animation: none !important; transition: none !important; }
+.still .t-line, .still .tape, .still .brick, .still .badge, .still .person, .still .bubble { opacity: 1; transform: none; }
+.still .bar { transform: none; }
+.still .old { opacity: 0.35; }
 
 @media (prefers-reduced-motion: reduce) {
   .stop.on * { animation: none !important; opacity: 1 !important; transform: none !important; }

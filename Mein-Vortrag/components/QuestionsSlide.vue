@@ -1,5 +1,12 @@
+<script setup lang="ts">
+import { useNav } from '@slidev/client'
+
+// Chrome prints gradient-clipped text as a solid box, so the PDF export uses a plain colour
+const { isPrintMode } = useNav()
+</script>
+
 <template>
-  <div class="qa">
+  <div class="qa" :class="{ print: isPrintMode }">
     <div class="dots-bg" />
     <div class="blob" style="width: 520px; height: 520px; right: -120px; top: -160px; background: #c9d8ff" />
     <div class="blob" style="width: 380px; height: 380px; left: -140px; bottom: -200px; background: #c6efe6" />
@@ -53,6 +60,7 @@ h1 .accent {
   background-clip: text;
   color: transparent;
 }
+.print h1 .accent { background: none; color: var(--accent); }
 .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
 .chip {
   display: inline-flex;

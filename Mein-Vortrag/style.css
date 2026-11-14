@@ -71,3 +71,9 @@
   opacity: 0.55;
   pointer-events: none;
 }
+
+/* PDF export (Slidev adds html.print): Chrome stores soft shadows as semi-transparent
+   layers that macOS Preview draws as grey boxes, so drop them in the PDF only. */
+html.print *,
+html.print *::before,
+html.print *::after { box-shadow: none !important; }
