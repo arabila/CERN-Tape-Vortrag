@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "vortrag", "runtimeExecutable": "npm", "runtimeArgs": ["--prefix", "/Users/amine/CERN-Tape-Vortrag/Mein-Vortrag", "run", "dev"], "port": 3030 }
+  ]
+}

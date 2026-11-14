@@ -1,0 +1,73 @@
+/* Light design system for the CTA 2026 talk */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --ink: #0b1220;
+  --ink-2: #334155;
+  --muted: #64748b;
+  --line: #e2e6ec;
+  --accent: #2f6bff;      /* primary blue */
+  --accent-soft: #e8efff;
+  --teal: #00a389;
+  --teal-soft: #e0f5f1;
+  --violet: #7357ff;
+  --violet-soft: #eeeaff;
+  --amber: #e89b00;
+  --amber-soft: #fff4dc;
+  --rose: #e5484d;
+  --rose-soft: #fdecec;
+  --green: #16a34a;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --radius: 18px;
+}
+
+.slidev-layout,
+.slidev-page {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Small uppercase label used above titles */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 13px/1 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.kicker::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Soft dotted background used by cover, section and Q&A slides */
+.dots-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%);
+  pointer-events: none;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+}
