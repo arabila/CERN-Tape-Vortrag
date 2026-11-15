@@ -10,9 +10,9 @@ const numbers = [
   { big: '2–3 Wochen', text: 'bis 150 PB neue Bänder voll sind' },
 ]
 const plans = [
-  { title: 'Scheduler neu bauen', text: 'Keine Konkurrenz der Tape-Server mehr um Sperren in der Scheduler-DB' },
-  { title: 'Tape-Supply integrieren', text: 'CTA wählt leere Bänder selbst, passend zu den freien Laufwerken' },
-  { title: 'Daten besser platzieren', text: 'Archive Metadata von Rucio (ATLAS, CMS) bestimmt, was zusammen aufs Band kommt' },
+  { title: 'Schnellere Auftragsverteilung', text: 'Neuer Scheduler: Die Tape-Server holen sich ihre Aufträge, ohne sich gegenseitig zu blockieren' },
+  { title: 'Leere Bänder automatisch nachfüllen', text: 'CTA füllt die Band-Pools selbst auf und nimmt Bänder, für die gerade ein Laufwerk frei ist' },
+  { title: 'Datensätze zusammen speichern', text: 'Rucio (ATLAS, CMS) meldet, welche Dateien zu einem Datensatz gehören. CTA schreibt sie gemeinsam auf Band, damit das Zurücklesen schneller geht' },
 ]
 
 // Drive efficiency gauge: measured 45 % (CMS recall test), goal 80 %

@@ -585,6 +585,11 @@ Drive Efficiency = Transfer Efficiency × Mount Efficiency. CMS-Recall: 45 %, Zi
 - Die Lösung für beides ist *Colocation*: Daten, die später zusammen gelesen werden (z. B. ein Datensatz von CMS), liegen zusammen auf wenigen Bändern und dort direkt hintereinander. Dafür liefert Rucio die „Archive Metadata“ (Plan Nr. 3 rechts).
 - ⚠️ Die Balken auf der Folie sind schematisch: Nur der Leseanteil (45 % bzw. 80 %) stammt aus der Quelle, die Aufteilung in Blöcke ist zur Veranschaulichung.
 
+**❓ PLAN FÜR LS3 EINFACH ERKLÄRT**
+1. *Schnellere Auftragsverteilung (Scheduler):* CTA sammelt alle offenen Aufträge („Datei aufs Band schreiben“ oder „Datei vom Band lesen“) in einer Warteschlange, der Scheduler-DB. Alle Tape-Server fragen dort nach ihrem nächsten Auftrag. Damit keine zwei Server denselben Auftrag nehmen, sperrt jeder kurz den Eintrag. Bei sehr vielen Aufträgen warten die Server deshalb aufeinander, statt zu arbeiten. Der neue Scheduler soll das ohne dieses gegenseitige Blockieren schaffen.
+2. *Leere Bänder automatisch nachfüllen (Tape-Supply):* „Supply“ heißt Nachschub an leeren Bändern. Jedes Experiment schreibt in seinen eigenen Band-Pool. Wenn die Bänder voll sind, braucht der Pool neue leere Bänder. Bisher wird das von außen organisiert. Künftig macht CTA das selbst und wählt dabei Bänder, die in einer Library mit gerade freien Laufwerken stehen.
+3. *Datensätze zusammen speichern (Archive Metadata):* Rucio ist das Datenverwaltungssystem der Experimente und weiß, welche Dateien zu welchem Datensatz gehören. Diese Info („Archive Metadata“) schickt Rucio beim Archivieren mit. CTA legt einen Datensatz dann auf wenigen Bändern direkt hintereinander ab (Colocation). Es geht also nicht darum, welche Experimente zusammenpassen, sondern welche Dateien innerhalb eines Experiments später gemeinsam gelesen werden. Ergebnis: weniger Mounts und weniger Spulen beim Recall, also eine höhere Drive Efficiency (siehe oben).
+
 **📚 HINTERGRUND & QUELLEN**
 
 *Was die Folie zeigt:* Die Herausforderungen für Run-4, die gemessene Laufwerks-Effizienz und die drei Entwicklungsziele für LS3.
